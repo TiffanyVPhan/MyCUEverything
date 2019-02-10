@@ -1,5 +1,5 @@
 from uuid import uuid4
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, make_response
 
 from api.mycueverything import MyCUEverything
 
@@ -11,11 +11,12 @@ everythings = {}
 
 @app.route('/')
 def index():
-    request.cookies['session'] = uuid4()
-
-    if everythings[request.cookies['session']]:
+    if 'session' in request.cookies and request.cookies['session'] in everythings:
         return redirect('/dash')
-    return render_template('index.html')
+
+    response = make_response(render_template('index.html'))
+    response.set_cookie('session', str(uuid4()))
+    return response
 
 
 @app.route('/login', methods=['GET', 'POST'])
