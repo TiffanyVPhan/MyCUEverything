@@ -50,10 +50,10 @@ class MyCUEverything:
 
         self._meal_swipes = int(float(soup.find('th', text='Current MP Balance:').parent
                                           .find('th', attrs={'colspan': ''}).get_text()))
-        self._munch_money = int(float(soup.find('th', text='Current MM Balance:').parent
-                                          .find('th', attrs={'colspan': ''}).get_text()))
-        self._campus_cash = int(float(soup.find('th', text='Current CC Balance:').parent
-                                          .find('th', attrs={'colspan': ''}).get_text()))
+        self._munch_money = float(soup.find('th', text='Current MM Balance:').parent
+                                      .find('th', attrs={'colspan': ''}).get_text())
+        self._campus_cash = float(soup.find('th', text='Current CC Balance:').parent
+                                      .find('th', attrs={'colspan': ''}).get_text())
 
     def _parse_force(self):
         """ Loads data from mycuhub.force.com """
@@ -78,8 +78,12 @@ class MyCUEverything:
         soup = BeautifulSoup(response.text, 'html.parser')
         form = soup.find('form')
         action = form.get('action')
-        saml = form.find('input', attrs={'name': 'SAMLResponse'}).get('value')
+        saml_response = form.find('input', attrs={'name': 'SAMLResponse'})
 
+        if not saml_response:
+            print(soup)
+
+        saml = saml_response.get('value')
         payload = {
             'SAMLResponse': saml
         }
@@ -173,14 +177,16 @@ class MyCUEverything:
         }
 
         session.post(action, data=payload)
-        response = session.get('https://portal.prod.cu.edu/psc/epprod/UCB2/ENTP/s/WEBLIB_PTBR.ISCRI'
-                               'PT1.FieldFormula.IScript_StartPage?HPTYPE=C')
+        session.get('https://portal.prod.cu.edu/psc/epprod/UCB2/ENTP/s/WEBLIB_PTBR.ISCRIPT1.FieldFo'
+                    'rmula.IScript_StartPage?HPTYPE=C')
 
-        response = session.get('https://portal.prod.cu.edu/psp/epprod/UCB2/ENTP/h/?cmd=getCachedPglt&pageletname=CU_STUDENT_SCHEDULE&tab=CU_STUDENT&PORTALPARAM_COMPWIDTH=Narrow&bNoGlobal=Y&ptlayout=N')
+        response = session.get('https://portal.prod.cu.edu/psp/epprod/UCB2/ENTP/h/?cmd=getCachedPgl'
+                               't&pageletname=CU_STUDENT_SCHEDULE&tab=CU_STUDENT&PORTALPARAM_COMPWI'
+                               'DTH=Narrow&bNoGlobal=Y&ptlayout=N')
         soup = BeautifulSoup(response.text, 'html.parser')
         class_info = soup.find('h3', text='Schedule: Spring 2019')
         class_block = class_info.next_sibling.next_sibling.find('tr').get_text()
-        
+
         for line in class_block.split('\n'):
             if line:
                 classes = re.search(r'\bClasses\b', line)

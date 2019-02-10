@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, redirect, session
 
 from api.mycueverything import MyCUEverything
 
@@ -10,6 +10,11 @@ everythings = {}
 
 @app.route('/')
 def index():
+    # Store a dummy value so that a session key is created.
+    session['_'] = 0
+
+    if everythings[request.cookies['session']]:
+        return redirect('/dash')
     return render_template('index.html')
 
 
@@ -25,7 +30,8 @@ def login():
 
 @app.route('/dash')
 def dash():
-    return render_template('dash.html', everything=everythings[request.cookies['session']])
+    return render_template('dash.html', everything=everythings[request.cookies['session']],
+                                        test=everythings[request.cookies['session']].student_id)
 
 
 if __name__ == '__main__':
