@@ -48,20 +48,20 @@ class MyCUEverything:
         soup = BeautifulSoup(response.text, 'html.parser')
 
         self._meal_swipes = int(float(soup.find('th', text='Current MP Balance:').parent
-                                      .find('th', attrs={'colspan': ''}).get_text()))
+                                          .find('th', attrs={'colspan': ''}).get_text()))
         self._munch_money = int(float(soup.find('th', text='Current MM Balance:').parent
-                                      .find('th', attrs={'colspan': ''}).get_text()))
+                                          .find('th', attrs={'colspan': ''}).get_text()))
         self._campus_cash = int(float(soup.find('th', text='Current CC Balance:').parent
-                                      .find('th', attrs={'colspan': ''}).get_text()))
+                                          .find('th', attrs={'colspan': ''}).get_text()))
 
     def _parse_force(self):
         """ Loads data from mycuhub.force.com """
 
         session = requests.session()
 
-        response = session.get('https://fedauth.colorado.edu/idp/profile/SAML2/Unsolicited/SSO'
-                               '?providerId=https://CUSalesforceUCBProdStuSvcsCommunity'
-                               '&amp;shire=https://mycuhub.force.com/login?so=00Do0000000Gz4V')
+        response = session.get('https://fedauth.colorado.edu/idp/profile/SAML2/Unsolicited/SSO?prov'
+                               'iderId=https://CUSalesforceUCBProdStuSvcsCommunity&amp;shire=https:'
+                               '//mycuhub.force.com/login?so=00Do0000000Gz4V')
 
         soup = BeautifulSoup(response.text, 'html.parser')
         action = soup.find('form').get('action')
@@ -89,8 +89,8 @@ class MyCUEverything:
         csrf = response.text.split('"ver":42.0,"csrf":"')[1].split('"')[0]
         vid = response.text.split('"vid":"')[1].split('"')[0]
         self._student_id = response.text.split("'adv_StudentView.getTermByTerm'")[1] \
-                                        .split("',")[0] \
-                                        .split("'")[-1]
+            .split("',")[0] \
+            .split("'")[-1]
 
         payload = f"""{{
             'action': 'adv_StudentView',
@@ -111,10 +111,72 @@ class MyCUEverything:
                                 headers={
                                     'Content-Type': 'application/json',
                                     'Referer': 'https://mycuhub.force.com/apex/adv_StudentView'
-        })
+                                })
 
         data = response.json()
         self._gpa = data[0]['result']['careers']['v']['UGRD']['cumlGPA']
+
+    def _parse_portal(self):
+        """ Loads data from mycuinfo.colorado.edu """
+
+        session = requests.session()
+
+        response = session.get('https://ping.prod.cu.edu/idp/startSSO.ping?PartnerSpId=SP:Enterpris'
+                               'ePortal&IdpSelectorId=BoulderIDP&TargetResource=https://portal.prod'
+                               '.cu.edu%2Fpsp%2Fepprod%2FUCB2%2FENTP%2Fh%2F%3Ftab%3DDEFAULT')
+        soup = BeautifulSoup(response.text, 'html.parser')
+        form = soup.find('form')
+        action = form.get('action')
+        saml = form.find('input', attrs={'name': 'SAMLRequest'}).get('value')
+        relay = form.find('input', attrs={'name': 'RelayState'}).get('value')
+
+        payload = {
+            'SAMLRequest': saml,
+            'RelayState': relay
+        }
+
+        response = session.post(action, data=payload)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        form = soup.find('form')
+        action = form.get('action')
+
+        payload = {
+            'j_username': self.username,
+            'j_password': self.password,
+            '_eventId_proceed': 'Log In',
+            'timezoneOffset': 0
+        }
+
+        response = session.post('https://fedauth.colorado.edu' + action, data=payload)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        form = soup.find('form')
+        action = form.get('action')
+        saml = form.find('input', attrs={'name': 'SAMLResponse'}).get('value')
+        relay = form.find('input', attrs={'name': 'RelayState'}).get('value')
+
+        payload = {
+            'SAMLResponse': saml,
+            'RelayState': relay
+        }
+
+        response = session.post(action, data=payload)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        form = soup.find('form')
+        action = form.get('action')
+        saml = form.find('input', attrs={'name': 'SAMLResponse'}).get('value')
+        relay = form.find('input', attrs={'name': 'RelayState'}).get('value')
+
+        payload = {
+            'SAMLResponse': saml,
+            'RelayState': relay
+        }
+
+        session.post(action, data=payload)
+        response = session.get('https://portal.prod.cu.edu/psc/epprod/UCB2/ENTP/s/WEBLIB_PTBR.ISCRI'
+                               'PT1.FieldFormula.IScript_StartPage?HPTYPE=C')
+
+        print(response.text)
+        open('text.html', 'w').write(response.text)
 
     @property
     def student_id(self):

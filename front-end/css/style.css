@@ -1,0 +1,41 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+	font-size: inherit;
+}
+
+.input-field label.active, .input-field .prefix.active {
+    color: #565A5C !important;
+}
+
+.input-field input:focus, .input-field textarea:focus {
+    border-color: #565A5C !important;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+ main {
+   flex: 1 0 auto;
+}
+
+.page-footer {
+  position: sticky;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #A2A4A3;
+  color: white;
+}
