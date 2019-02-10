@@ -9,7 +9,8 @@ class MyCUEverything:
         self.username = _username
         self.password = _password
 
-        self.student_id = None
+        self._student_id = None
+        self._gpa = None
 
         self._meal_swipes = None
         self._munch_money = None
@@ -87,14 +88,14 @@ class MyCUEverything:
         response = session.get('https://mycuhub.force.com/apex/adv_StudentView')
         csrf = response.text.split('"ver":42.0,"csrf":"')[1].split('"')[0]
         vid = response.text.split('"vid":"')[1].split('"')[0]
-        self.student_id = response.text.split("'adv_StudentView.getTermByTerm'")[1] \
-                                       .split("',")[0] \
-                                       .split("'")[-1]
+        self._student_id = response.text.split("'adv_StudentView.getTermByTerm'")[1] \
+                                        .split("',")[0] \
+                                        .split("'")[-1]
 
         payload = f"""{{
             'action': 'adv_StudentView',
             'method': 'getTermByTerm',
-            'data': ['{self.student_id}'],
+            'data': ['{self._student_id}'],
             'type': 'rpc',
             'tid': 2,
             'ctx': {{
@@ -113,7 +114,19 @@ class MyCUEverything:
         })
 
         data = response.json()
-        # TODO: Parse data.
+        self._gpa = data[0]['result']['careers']['v']['UGRD']['cumlGPA']
+
+    @property
+    def student_id(self):
+        if self._student_id is None:
+            self._parse_force()
+        return self._student_id
+
+    @property
+    def gpa(self):
+        if self._gpa is None:
+            self._parse_force()
+        return self._gpa
 
     @property
     def meal_swipes(self):
