@@ -11,7 +11,7 @@ everythings = {}
 
 @app.route('/')
 def index():
-    if 'session' in request.cookies and request.cookies['session'] in everythings:
+    if everythings.get(request.cookies['session'], None):
         return redirect('/dash')
 
     response = make_response(render_template('index.html'))
