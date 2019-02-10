@@ -28,12 +28,17 @@ def login():
 
 @app.route('/logout')
 def logout():
-    everythings.pop(request.cookies['session'])
+    if request.cookies.get('session', None):
+        everythings.pop(request.cookies['session'])
+
     return redirect('/')
 
 
 @app.route('/dash')
 def dash():
+    if not everythings.get(request.cookies.get('session', None), None):
+        return redirect('/')
+
     return render_template('dash.html', everything=everythings[request.cookies['session']])
 
 

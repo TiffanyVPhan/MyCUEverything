@@ -5,21 +5,23 @@
         <a href="{{ url_for('logout') }}" class="btn">Log Out</a>
 
         <ul class="collapsible">
-        <li>
-            <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
-            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-        </li>
-    </ul>
+            <li>
+                <div class="collapsible-header"><i class="material-icons">info</i>Student Info</div>
+                <div class="collapsible-body">
+                    <p>Student ID: {{ everything.student_id }}</p>
+                    <p>GPA: {{ everything.gpa }}</p>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header"><i class="material-icons">fastfood</i>Meal Plan</div>
+                <div class="collapsible-body">
+                    <p>Meal Swipes: {{ everything.meal_swipes }}</p>
+                    <p>Munch Money: {{ everything.munch_money }}</p>
+                    <p>Campus Cash: {{ everything.campus_cash }}</p>
+                </div>
+            </li>
+        </ul>
     </div>
-
-    <p>Student ID: {{ everything.student_id }}</p>
-    <p>GPA: {{ everything.gpa }}</p>
-    <p>Meal Swipes: {{ everything.meal_swipes }}</p>
-    <p>Munch Money: {{ everything.munch_money }}</p>
-    <p>Campus Cash: {{ everything.campus_cash }}</p>
-
-
-
 {% endblock %}
 
 {% block js %}
