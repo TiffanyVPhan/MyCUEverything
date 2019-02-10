@@ -36,7 +36,7 @@ def logout():
     if request.cookies.get('session', None):
         everythings.pop(request.cookies['session'])
 
-    return redirect('/')
+    return redirect('/?logout')
 
 
 @app.route('/dash')

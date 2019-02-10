@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
 
 {% block body %}
+    <div class="hide" id="alert">
+        <span class="closebtn" onclick="this.parentElement.className='hide';">&times;</span>
+        <strong id="alert-text">Successfully logged out!</strong>
+    </div>
+
     <div class="section">
         <div class="container center">
             <br><br>
-            <h1 class="center">MyCU<wbr>Everything</h1>
+            <h1 class="center">MyCU<wbr>Everything
+            </h1>
             <h5 class="light">Everything you need in once place.</h5>
         </div>
     </div>
@@ -13,7 +19,6 @@
 
     <div class="section" id="form">
         <div class="small-container">
-            <p class="red-text hide" id="error">Invalid credentials.</p>
             <form action="{{ url_for('login') }}" method="post">
                 <div class="input-field">
                     <i class="material-icons prefix">face</i>
@@ -31,14 +36,9 @@
         </div>
     </div>
 
-    <div class="alert">
-      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-      <strong>Successfully logged out!</strong>
-    </div>
-
 {% endblock %}
 
 {% block js %}
-    <script src="{{ url_for('static', filename='js/error.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/message.js') }}"></script>
     <script src="{{ url_for('static', filename='js/loader.js') }}"></script>
 {% endblock %}
