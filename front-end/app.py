@@ -11,7 +11,7 @@ everythings = {}
 
 @app.route('/')
 def index():
-    if everythings.get(request.cookies['session'], None):
+    if everythings.get(request.cookies.get('session', None), None):
         return redirect('/dash')
 
     response = make_response(render_template('index.html'))
@@ -19,11 +19,8 @@ def index():
     return response
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['POST'])
 def login():
-    if request.method == 'GET':
-        return render_template('login.html')
-
     everythings[request.cookies['session']] = MyCUEverything(request.form['username'],
                                                              request.form['password'])
     return redirect('dash')

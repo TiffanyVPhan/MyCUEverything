@@ -111,6 +111,7 @@ class MyCUEverything:
             }}
         }}"""
 
+        print(payload)
         response = session.post('https://mycuhub.force.com/apexremote',
                                 data=payload,
                                 headers={
@@ -119,7 +120,11 @@ class MyCUEverything:
                                 })
 
         data = response.json()
-        self._gpa = data[0]['result']['careers']['v']['UGRD']['cumlGPA']
+        print(data)
+        try:
+            self._gpa = data[0]['result']['careers']['v']['UGRD']['cumlGPA']
+        except KeyError:
+            self._gpa = 'Bad response from mycuhub.'
 
     def _parse_portal(self):
         """ Loads data from mycuinfo.colorado.edu """
