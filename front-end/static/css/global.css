@@ -83,6 +83,12 @@
     overflow: auto;
 }
 
+.purple {
+    background-color: #b299e6 !important;
+    color: white !important;
+    box-shadow: none !important;
+}
+
 #alert {
     padding: 20px;
     color: white;
