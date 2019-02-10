@@ -16,7 +16,7 @@
 <nav class="lighten-1" style="background-color:#585A5C" role="navigation">
     <div class="nav-wrapper">
         <a id="logo-container" href="{{ url_for('index') }}" class="brand-logo">
-            <img src="{{ url_for('static', filename='cu.png') }}" style="width:50px;height:50px; margin:7px">
+            <img src="{{ url_for('static', filename='cu.png') }}" style="width:50px;height:50px; margin:7px" align="MyCUEverything">
         </a>
         <ul class="right">
             <li>
@@ -29,7 +29,6 @@
 </nav>
 {% block body %}
 {% endblock %}
-
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="{{ url_for('static', filename='js/t9hackify.js') }}"></script>
