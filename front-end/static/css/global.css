@@ -79,7 +79,16 @@
     color: black;
 }
 
+.clearfix {
+    overflow: auto;
+}
+
 #alert {
     padding: 20px;
     color: white;
+}
+
+#gpatrend {
+    max-width: 500px;
+    float: right;
 }

@@ -127,7 +127,7 @@ class MyCUEverything:
         except KeyError:
             self._gpa = 'Bad response from mycuhub.'
             self._hours_passed = 'Bad response from mycuhub.'
-            self._gpa_trend = []
+            self._gpa_trend = ''
 
     def _parse_portal(self):
         """ Loads data from mycuinfo.colorado.edu """
@@ -214,16 +214,22 @@ class MyCUEverything:
         return self._student_id
 
     @property
+    def hours_passed(self):
+        if self._hours_passed is None:
+            self._parse_force()
+        return self._hours_passed
+
+    @property
     def gpa(self):
         if self._gpa is None:
             self._parse_force()
         return self._gpa
 
     @property
-    def hours_passed(self):
-        if self._hours_passed is None:
+    def gpa_trend(self):
+        if self._gpa_trend is None:
             self._parse_force()
-        return self._hours_passed
+        return self._gpa_trend
 
     @property
     def meal_swipes(self):

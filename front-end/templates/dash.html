@@ -9,9 +9,11 @@
             <li>
                 <div class="collapsible-header"><i class="material-icons">info</i>Student Info</div>
                 <div class="collapsible-body">
+                    <canvas id="gpatrend"></canvas>
                     <p>Student ID: {{ everything.student_id }}</p>
                     <p>GPA: {{ everything.gpa }}</p>
                     <p>Hours Passed: {{ everything.hours_passed }}</p>
+                    <div class="clearfix"></div>
                 </div>
             </li>
             <li>
@@ -27,5 +29,7 @@
 {% endblock %}
 
 {% block js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
     <script src="{{ url_for('static', filename='js/collapsibles.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/chart.js') }}" gpatrend="{{ everything.gpa_trend }}"></script>
 {% endblock %}
