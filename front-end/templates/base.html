@@ -20,10 +20,15 @@
             <img src="{{ url_for('static', filename='cu.png') }}" style="width:50px;height:50px; margin:7px" align="MyCUEverything">
         </a>
         <ul class="right">
+            {% if request.path == "/dash" %}
             <li>
-                <button class="btn-small waves-effect waves-light"
-                        style="background-color:mediumslateblue; margin-right:20px" onclick="t9Hackify()">T9Hackify
-                </button>
+                <a href="{{ url_for('logout') }}" class="btn black">Log Out</a>
+            </li>
+            {% endif %}
+            <li>
+                <a class="btn waves-effect waves-light"
+                        style="background-color:mediumslateblue; margin-right:20px" href="javascript:t9Hackify()">T9Hackify
+                </a>
             </li>
         </ul>
     </div>
