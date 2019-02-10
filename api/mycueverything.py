@@ -14,6 +14,7 @@ class MyCUEverything:
         self._student_id = None
         self._gpa = None
         self._hours_passed = None
+        self._gpa_trend = None
 
         self._meal_swipes = None
         self._munch_money = None
@@ -122,9 +123,11 @@ class MyCUEverything:
         try:
             self._gpa = data[0]['result']['careers']['v']['UGRD']['cumlGPA']
             self._hours_passed = data[0]['result']['careers']['v']['UGRD']['cumlHoursPassed']
+            self._gpa_trend = data[0]['result']['careers']['v']['UGRD']['GPATrend']
         except KeyError:
             self._gpa = 'Bad response from mycuhub.'
             self._hours_passed = 'Bad response from mycuhub.'
+            self._gpa_trend = []
 
     def _parse_portal(self):
         """ Loads data from mycuinfo.colorado.edu """
