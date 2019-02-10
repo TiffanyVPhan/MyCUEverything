@@ -172,7 +172,7 @@ class MyCUEverything:
         session.post(action, data=payload)
         response = session.get('https://portal.prod.cu.edu/psc/epprod/UCB2/ENTP/s/WEBLIB_PTBR.ISCRIPT1.FieldFormula.IScript_StartPage?HPTYPE=C')
 
-        print(response)
+        print(response.text)
         open('text.html', 'w').write(response.text)
 
     @property
