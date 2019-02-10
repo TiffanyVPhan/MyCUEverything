@@ -1,4 +1,5 @@
 import requests
+import re
 
 from time import sleep
 from bs4 import BeautifulSoup
@@ -175,8 +176,16 @@ class MyCUEverything:
         response = session.get('https://portal.prod.cu.edu/psc/epprod/UCB2/ENTP/s/WEBLIB_PTBR.ISCRI'
                                'PT1.FieldFormula.IScript_StartPage?HPTYPE=C')
 
-        print(response.text)
-        open('text.html', 'w').write(response.text)
+        response = session.get('https://portal.prod.cu.edu/psp/epprod/UCB2/ENTP/h/?cmd=getCachedPglt&pageletname=CU_STUDENT_SCHEDULE&tab=CU_STUDENT&PORTALPARAM_COMPWIDTH=Narrow&bNoGlobal=Y&ptlayout=N')
+        soup = BeautifulSoup(response.text, 'html.parser')
+        class_info = soup.find('h3', text='Schedule: Spring 2019')
+        class_block = class_info.next_sibling.next_sibling.find('tr').get_text()
+        
+        for line in class_block.split('\n'):
+            if line:
+                classes = re.search(r'\bClasses\b', line)
+                if classes:
+                    print(line)
 
     @property
     def student_id(self):
