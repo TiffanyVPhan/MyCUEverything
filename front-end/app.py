@@ -11,7 +11,7 @@ everythings = {}
 @app.route('/')
 def index():
     # Store a dummy value so that a session key is created.
-    session['_'] = 0
+    session['id'] = 1
 
     if everythings[request.cookies['session']]:
         return redirect('/dash')
