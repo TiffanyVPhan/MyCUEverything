@@ -60,9 +60,9 @@ class MyCUEverything:
 
         session = requests.session()
 
-        response = session.get('https://fedauth.colorado.edu/idp/profile/SAML2/Unsolicited/SSO'
-                               '?providerId=https://CUSalesforceUCBProdStuSvcsCommunity'
-                               '&amp;shire=https://mycuhub.force.com/login?so=00Do0000000Gz4V')
+        response = session.get('https://fedauth.colorado.edu/idp/profile/SAML2/Unsolicited/SSO?prov'
+                               'iderId=https://CUSalesforceUCBProdStuSvcsCommunity&amp;shire=https:'
+                               '//mycuhub.force.com/login?so=00Do0000000Gz4V')
 
         soup = BeautifulSoup(response.text, 'html.parser')
         action = soup.find('form').get('action')
@@ -122,7 +122,9 @@ class MyCUEverything:
 
         session = requests.session()
 
-        response = session.get('https://ping.prod.cu.edu/idp/startSSO.ping?PartnerSpId=SP:EnterprisePortal&IdpSelectorId=BoulderIDP&TargetResource=https://portal.prod.cu.edu%2Fpsp%2Fepprod%2FUCB2%2FENTP%2Fh%2F%3Ftab%3DDEFAULT')
+        response = session.get('https://ping.prod.cu.edu/idp/startSSO.ping?PartnerSpId=SP:Enterpris'
+                               'ePortal&IdpSelectorId=BoulderIDP&TargetResource=https://portal.prod'
+                               '.cu.edu%2Fpsp%2Fepprod%2FUCB2%2FENTP%2Fh%2F%3Ftab%3DDEFAULT')
         soup = BeautifulSoup(response.text, 'html.parser')
         form = soup.find('form')
         action = form.get('action')
@@ -171,7 +173,8 @@ class MyCUEverything:
         }
 
         session.post(action, data=payload)
-        response = session.get('https://portal.prod.cu.edu/psc/epprod/UCB2/ENTP/s/WEBLIB_PTBR.ISCRIPT1.FieldFormula.IScript_StartPage?HPTYPE=C')
+        response = session.get('https://portal.prod.cu.edu/psc/epprod/UCB2/ENTP/s/WEBLIB_PTBR.ISCRI'
+                               'PT1.FieldFormula.IScript_StartPage?HPTYPE=C')
 
         response = session.get('https://portal.prod.cu.edu/psp/epprod/UCB2/ENTP/h/?cmd=getCachedPglt&pageletname=CU_STUDENT_SCHEDULE&tab=CU_STUDENT&PORTALPARAM_COMPWIDTH=Narrow&bNoGlobal=Y&ptlayout=N')
         soup = BeautifulSoup(response.text, 'html.parser')

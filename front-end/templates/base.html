@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+
+    <title>MyCUEverything</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="{{ url_for('static', filename='css/global.css') }}" type="text/css" rel="stylesheet"
+          media="screen,projection"/>
+</head>
+<body>
+<nav class="lighten-1" style="background-color:#585A5C" role="navigation">
+    <div class="nav-wrapper">
+        <a id="logo-container" href="{{ url_for('index') }}" class="brand-logo">
+            <img src="{{ url_for('static', filename='cu.png') }}" style="width:50px;height:50px; margin:7px" align="MyCUEverything">
+        </a>
+        <ul class="right">
+            <li>
+                <button id="download-button" class="btn-small waves-effect waves-light"
+                        style="background-color:mediumslateblue; margin-right:20px" onclick="t9Hackify()">T9Hackify
+                </button>
+            </li>
+        </ul>
+    </div>
+</nav>
+{% block body %}
+{% endblock %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="{{ url_for('static', filename='js/t9hackify.js') }}"></script>
+</body>
+</html>
