@@ -6,7 +6,7 @@ Log in with your identikey and password, and your information will be displayed 
 
 **How to Run**
 
-Using the ```pipenv```, run the ```flask app``` in the front-end directory, and set ```PYTHONPATH```to the root of the repository.
+Using the ```pipenv```, run the flask app in the ```front-end``` directory, and set ```$PYTHONPATH```to the root of the repository.
 
 
 
