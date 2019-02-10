@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 
 from api.mycueverything import MyCUEverything
 
@@ -10,6 +10,11 @@ everythings = {}
 
 @app.route('/')
 def index():
+    # Store a dummy value so that a session key is created.
+    session['_'] = 0
+
+    if everythings[request.cookies['session']]:
+        return redirect('/dash')
     return render_template('index.html')
 
 
