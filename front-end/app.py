@@ -29,10 +29,15 @@ def login():
     return redirect('dash')
 
 
+@app.route('/logout')
+def logout():
+    everythings.pop(request.cookies['session'])
+    return redirect('/')
+
+
 @app.route('/dash')
 def dash():
-    return render_template('dash.html', everything=everythings[request.cookies['session']],
-                                        test=everythings[request.cookies['session']].student_id)
+    return render_template('dash.html', everything=everythings[request.cookies['session']])
 
 
 if __name__ == '__main__':
