@@ -9,11 +9,15 @@ class MyCUEverything:
         self.username = _username
         self.password = _password
 
+        self.student_id = None
+
         self._meal_swipes = None
         self._munch_money = None
         self._campus_cash = None
 
     def _parse_jsatech(self):
+        """ Loads data from colorado.edu/buffonecard """
+
         session = requests.session()
 
         response = session.get('https://services.jsatech.com/login.php?cid=59')
@@ -43,11 +47,73 @@ class MyCUEverything:
         soup = BeautifulSoup(response.text, 'html.parser')
 
         self._meal_swipes = int(float(soup.find('th', text='Current MP Balance:').parent
-                                          .find('th', attrs={'colspan': ''}).get_text()))
+                                      .find('th', attrs={'colspan': ''}).get_text()))
         self._munch_money = int(float(soup.find('th', text='Current MM Balance:').parent
-                                          .find('th', attrs={'colspan': ''}).get_text()))
+                                      .find('th', attrs={'colspan': ''}).get_text()))
         self._campus_cash = int(float(soup.find('th', text='Current CC Balance:').parent
-                                          .find('th', attrs={'colspan': ''}).get_text()))
+                                      .find('th', attrs={'colspan': ''}).get_text()))
+
+    def _parse_force(self):
+        """ Loads data from mycuhub.force.com """
+
+        session = requests.session()
+
+        response = session.get('https://fedauth.colorado.edu/idp/profile/SAML2/Unsolicited/SSO'
+                               '?providerId=https://CUSalesforceUCBProdStuSvcsCommunity'
+                               '&amp;shire=https://mycuhub.force.com/login?so=00Do0000000Gz4V')
+
+        soup = BeautifulSoup(response.text, 'html.parser')
+        action = soup.find('form').get('action')
+
+        payload = {
+            'j_username': self.username,
+            'j_password': self.password,
+            '_eventId_proceed': ''
+        }
+
+        response = session.post('https://fedauth.colorado.edu' + action, data=payload)
+
+        soup = BeautifulSoup(response.text, 'html.parser')
+        form = soup.find('form')
+        action = form.get('action')
+        saml = form.find('input', attrs={'name': 'SAMLResponse'}).get('value')
+
+        payload = {
+            'SAMLResponse': saml
+        }
+
+        session.post(action, data=payload)
+
+        response = session.get('https://mycuhub.force.com/apex/adv_StudentView')
+        csrf = response.text.split('"ver":42.0,"csrf":"')[1].split('"')[0]
+        vid = response.text.split('"vid":"')[1].split('"')[0]
+        self.student_id = response.text.split("'adv_StudentView.getTermByTerm'")[1] \
+                                       .split("',")[0] \
+                                       .split("'")[-1]
+
+        payload = f"""{{
+            'action': 'adv_StudentView',
+            'method': 'getTermByTerm',
+            'data': ['{self.student_id}'],
+            'type': 'rpc',
+            'tid': 2,
+            'ctx': {{
+                'csrf': '{csrf}',
+                'vid': '{vid}',
+                'ns': '',
+                'ver': 42
+            }}
+        }}"""
+
+        response = session.post('https://mycuhub.force.com/apexremote',
+                                data=payload,
+                                headers={
+                                    'Content-Type': 'application/json',
+                                    'Referer': 'https://mycuhub.force.com/apex/adv_StudentView'
+        })
+
+        data = response.json()
+        # TODO: Parse data.
 
     @property
     def meal_swipes(self):
