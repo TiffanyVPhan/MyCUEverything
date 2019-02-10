@@ -10,6 +10,7 @@ class MyCUEverything:
         self.username = _username
         self.password = _password
 
+        self._name = None
         self._student_id = None
         self._gpa = None
 
@@ -79,10 +80,6 @@ class MyCUEverything:
         form = soup.find('form')
         action = form.get('action')
         saml_response = form.find('input', attrs={'name': 'SAMLResponse'})
-
-        if not saml_response:
-            print(soup)
-
         saml = saml_response.get('value')
         payload = {
             'SAMLResponse': saml
@@ -94,8 +91,10 @@ class MyCUEverything:
         csrf = response.text.split('"ver":42.0,"csrf":"')[1].split('"')[0]
         vid = response.text.split('"vid":"')[1].split('"')[0]
         self._student_id = response.text.split("'adv_StudentView.getTermByTerm'")[1] \
-            .split("',")[0] \
-            .split("'")[-1]
+                                        .split("',")[0] \
+                                        .split("'")[-1]
+        self._name = BeautifulSoup(response.text, 'html.parser') \
+            .find('span', text='Current user is ').next_sibling
 
         payload = f"""{{
             'action': 'adv_StudentView',
@@ -111,7 +110,6 @@ class MyCUEverything:
             }}
         }}"""
 
-        print(payload)
         response = session.post('https://mycuhub.force.com/apexremote',
                                 data=payload,
                                 headers={
@@ -120,7 +118,6 @@ class MyCUEverything:
                                 })
 
         data = response.json()
-        print(data)
         try:
             self._gpa = data[0]['result']['careers']['v']['UGRD']['cumlGPA']
         except KeyError:
@@ -197,6 +194,12 @@ class MyCUEverything:
                 classes = re.search(r'\bClasses\b', line)
                 if classes:
                     print(line)
+
+    @property
+    def name(self):
+        if self._name is None:
+            self._parse_force()
+        return self._name
 
     @property
     def student_id(self):
