@@ -6,6 +6,33 @@
     border-color: #565A5C !important;
 }
 
+
+@media only screen and (max-width: 600px) {
+    .small-container {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    #logo {
+        width: 45px;
+        height: 45px;
+        margin: 5px 0 0 20px;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .small-container {
+        margin-left: 30%;
+        margin-right: 30%;
+    }
+
+    #logo {
+        width: 45px;
+        height: 45px;
+        margin: 10px 0 0 20px;
+    }
+}
+
 .loader {
     border: 16px solid #cfb87c;
     border-radius: 50%;

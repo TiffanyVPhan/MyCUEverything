@@ -2,19 +2,17 @@
 
 {% block body %}
     <div class="section">
-        <div class="container">
+        <div class="container center">
             <br><br>
-            <h1 class="header center text">MyCUEverything</h1>
-            <div class="row center">
-                <h5 class="header col s12 light">Everything you need in once place.</h5>
-            </div>
+            <h1 class="center">MyCU<wbr>Everything</h1>
+            <h5 class="light">Everything you need in once place.</h5>
         </div>
     </div>
 
     <div class="hide" id="loader"></div>
 
     <div class="section" id="form">
-        <div class="container">
+        <div class="small-container">
             <p class="red-text hide" id="error">Invalid credentials.</p>
             <form action="{{ url_for('login') }}" method="post">
                 <div class="input-field">
@@ -23,7 +21,7 @@
                     <label for="username">IdentiKey</label>
                 </div>
                 <div class="input-field">
-                    <i class="material-icons prefix">textsms</i>
+                    <i class="material-icons prefix">security</i>
                     <input type="password" id="password" name="password">
                     <label for="password">Password</label>
                 </div>
