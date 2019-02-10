@@ -1,9 +1,24 @@
 {% extends 'base.html' %}
 
 {% block body %}
+    <a href="/logout" class="btn">Log Out</a>
+
     <p>Student ID: {{ everything.student_id }}</p>
-    <p>Gpa: {{ everything.gpa }}</p>
+    <p>GPA: {{ everything.gpa }}</p>
     <p>Meal Swipes: {{ everything.meal_swipes }}</p>
     <p>Munch Money: {{ everything.munch_money }}</p>
     <p>Campus Cash: {{ everything.campus_cash }}</p>
+
+    
+     <ul class="collapsible">
+    <li>
+      <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
+      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+    </li>
+
+  </ul>
+{% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static', filename='js/collapsibles.js') }}"></script>
 {% endblock %}
