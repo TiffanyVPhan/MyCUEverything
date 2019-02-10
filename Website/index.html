@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<!-- 
+Gold: #CFB87C
+Light Grey: #A2A4A3
+Dark Grey: #585A5C
+-->
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -22,25 +27,26 @@
   </style>
 </head>
 <body>
-  <nav class="lighten-1" style="background-color:#CFB87C" role="navigation">
+  <nav class="lighten-1" style="background-color:#585A5C" role="navigation">
     <div class="nav-wrapper">
       <a id="logo-container" href="index.html" class="brand-logo"> 
         <img src="cu.png" style="width:50px;height:50px; margin:7px">
       </a>
       <ul class="right">
-        <li><a href="index.html">Navbar Link</a></li>
+        <!-- <li><a href="index.html" >Navbar Link</a></li> -->
+        <li><button href="index.html" id="download-button" class="btn-small waves-effect waves-light" style="background-color:mediumslateblue; margin:7px" onclick="t9Hackify()" >T9Hackify</button></li>
       </ul>
     </div>
   </nav>
   <div class="section no-pad-bot" id="index-banner">
     <div class="container">
       <br><br>
-      <h1 class="header center black-text">myCUEverything</h1>
+      <h1 class="header center text">myCUEverything</h1>
       <div class="row center">
-        <h5 class="header col s12 light">Inspired by myCUInfo</h5>
+        <h5 class="header col s12 light">Inspired by our "dislike" of myCUInfo</h5>
       </div>
       <div class="row center">
-        <a href="inputUser.html" id="download-button" class="btn-large waves-effect waves-light black">Get Started</a>
+        <a href="inputUser.html" id="download-button" class="btn-large waves-effect waves-light" style="background-color:#585A5C">Get Started</a>
       </div>
       <br><br>
 
@@ -89,7 +95,7 @@
     <div class="container">
       <div class="row">
         <div class="col s12">
-          <h5 class="white-text" style="text-align:center">Our Project</h5>
+          <h5 class="text" style="text-align:center">Our Project</h5>
           <p class="grey-text text-lighten-4">Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla</p>
 
 
@@ -98,13 +104,25 @@
     </div>
     <div class="footer-copyright">
       <div class="container">
-      Made by Jessica, Joe, Tiffany, and Elizabeth
+      Made by Jessica, Josh, Tiffany, and Elizabeth
       </div>
     </div>
   </footer>
 
 
   <!--  Scripts-->
+  <script>
+    function t9Hackify(){   
+      if(document.body.style.backgroundColor == "white"){
+        document.body.style.backgroundColor = "#b299e6";
+        document.body.style.color = "white";
+      }else{
+        document.body.style.backgroundColor = "white";
+        document.body.style.color = "black";
+      }
+    }
+  </script>
+
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
