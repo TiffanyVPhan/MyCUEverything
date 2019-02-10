@@ -13,11 +13,12 @@
 
     <div class="section">
         <div class="container">
+            <p class="red-text hide" id="error">Invalid credentials.</p>
             <form action="{{ url_for('login') }}" method="post">
                 <div class="input-field">
-                    <i class="material-icons prefix">textsms</i>
+                    <i class="material-icons prefix">face</i>
                     <input type="text" id="username" name="username">
-                    <label for="username">Username</label>
+                    <label for="username">IdentiKey</label>
                 </div>
                 <div class="input-field">
                     <i class="material-icons prefix">textsms</i>
@@ -29,4 +30,8 @@
             <br><br>
         </div>
     </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static', filename='js/error.js') }}"></script>
 {% endblock %}
