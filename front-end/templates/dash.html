@@ -4,18 +4,23 @@
     <div class="section container">
         <a href="{{ url_for('logout') }}" class="btn black">Log Out</a>
 
-        <ul class="collapsible">
+        <div class="container">
+            <br>
+            <h2 class="header center text">Jessica Sanborn</h2>
+        </div>
+
+        <ul class="expandable collapsible">
             <li>
-                <div class="collapsible-header"><i class="material-icons">info</i>Student Info</div>
-                <div class="collapsible-body">
-                    <p>Student ID: {{ everything.student_id }}</p>
-                    <p>GPA: {{ everything.gpa }}</p>
+                <div class="expandable collapsible-header"><i class="material-icons">info</i>Student Info</div>
+                <div class="expandable collapsible-body">
+                    <p>Student ID: {{ 107422251 }}</p> <!-- everything.student_id -->
+                    <p>GPA: {{ 4.0 }}</p> <!-- everything.gpa  -->
                 </div>
             </li>
             <li>
-                <div class="collapsible-header"><i class="material-icons">fastfood</i>Meal Plan</div>
-                <div class="collapsible-body">
-                    <p>Meal Swipes: {{ everything.meal_swipes }}</p>
+                <div class="expandable collapsible-header"><i class="material-icons">fastfood</i>Meal Plan</div>
+                <div class="expandable collapsible-body">
+                    <p>Meal Swipes: {{  }}</p> <!-- everything.meal_swipes -->
                     <p>Munch Money: {{ everything.munch_money }}</p>
                     <p>Campus Cash: {{ everything.campus_cash }}</p>
                 </div>
