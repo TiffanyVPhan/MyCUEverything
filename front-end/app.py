@@ -21,6 +21,11 @@ def index():
 
 @app.route('/login', methods=['POST'])
 def login():
+    if not request.form.get('username', None) or not request.form.get('password', None):
+        return redirect('/?error')
+    if '@colorado.edu' in request.form.get('username', ''):
+        request.form['username'] = request.form['username'].replace('@colorado.edu', '')
+
     everythings[request.cookies['session']] = MyCUEverything(request.form['username'],
                                                              request.form['password'])
     return redirect('dash')
