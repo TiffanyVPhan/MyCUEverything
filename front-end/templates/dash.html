@@ -2,17 +2,24 @@
 
 {% block body %}
     <div class="section container">
-        <ul class="collapsible">
+        <a href="{{ url_for('logout') }}" class="btn black">Log Out</a>
+
+        <div class="container">
+            <br>
+            <h2 class="header center text">Name Goes Here</h2>
+        </div>
+
+        <ul class="expandable collapsible">
             <li>
-                <div class="collapsible-header"><i class="material-icons">info</i>Student Info</div>
-                <div class="collapsible-body">
+                <div class="expandable collapsible-header"><i class="material-icons">info</i>Student Info</div>
+                <div class="expandable collapsible-body">
                     <p>Student ID: {{ everything.student_id }}</p>
                     <p>GPA: {{ everything.gpa }}</p>
                 </div>
             </li>
             <li>
-                <div class="collapsible-header"><i class="material-icons">fastfood</i>Meal Plan</div>
-                <div class="collapsible-body">
+                <div class="expandable collapsible-header"><i class="material-icons">fastfood</i>Meal Plan</div>
+                <div class="expandable collapsible-body">
                     <p>Meal Swipes: {{ everything.meal_swipes }}</p>
                     <p>Munch Money: {{ everything.munch_money }}</p>
                     <p>Campus Cash: {{ everything.campus_cash }}</p>
