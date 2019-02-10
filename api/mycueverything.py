@@ -13,6 +13,7 @@ class MyCUEverything:
         self._name = None
         self._student_id = None
         self._gpa = None
+        self._hours_passed = None
 
         self._meal_swipes = None
         self._munch_money = None
@@ -120,8 +121,10 @@ class MyCUEverything:
         data = response.json()
         try:
             self._gpa = data[0]['result']['careers']['v']['UGRD']['cumlGPA']
+            self._hours_passed = data[0]['result']['careers']['v']['UGRD']['cumlHoursPassed']
         except KeyError:
             self._gpa = 'Bad response from mycuhub.'
+            self._hours_passed = 'Bad response from mycuhub.'
 
     def _parse_portal(self):
         """ Loads data from mycuinfo.colorado.edu """
@@ -212,6 +215,12 @@ class MyCUEverything:
         if self._gpa is None:
             self._parse_force()
         return self._gpa
+
+    @property
+    def hours_passed(self):
+        if self._hours_passed is None:
+            self._parse_force()
+        return self._hours_passed
 
     @property
     def meal_swipes(self):

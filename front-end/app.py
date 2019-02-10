@@ -33,7 +33,7 @@ def login():
 
 @app.route('/logout')
 def logout():
-    if request.cookies.get('session', None):
+    if request.cookies.get('session', None) in everythings:
         everythings.pop(request.cookies['session'])
 
     return redirect('/?logout')
