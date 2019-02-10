@@ -1,43 +1,6 @@
-<!DOCTYPE html>
-<!-- 
-Gold: #CFB87C
-Light Grey: #A2A4A3
-Dark Grey: #585A5C
--->
-<html lang="en">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>myCUEverything</title>
+{% extends 'base.html' %}
 
-  <!-- CSS  -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <link href="../static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <style>
-    body {
-      display: flex;
-      min-height: 100vh;
-      flex-direction: column;
-    }
-
-    main {
-      flex: 1 0 auto;
-    }
-  </style>
-</head>
-<body>
-  <nav class="lighten-1" style="background-color:#585A5C" role="navigation">
-    <div class="nav-wrapper">
-      <a id="logo-container" href="index.html" class="brand-logo"> 
-        <img src="../static/cu.png" style="width:50px;height:50px; margin:7px">
-      </a>
-      <ul class="right">
-        <!-- <li><a href="index.html" >Navbar Link</a></li> -->
-        <li><button href="index.html" id="download-button" class="btn-small waves-effect waves-light" style="background-color:mediumslateblue; margin:7px" onclick="t9Hackify()" >T9Hackify</button></li>
-      </ul>
-    </div>
-  </nav>
+{% block body %}
   <div class="section no-pad-bot" id="index-banner">
     <div class="container">
       <br><br>
@@ -46,7 +9,7 @@ Dark Grey: #585A5C
         <h5 class="header col s12 light">Inspired by our "dislike" of myCUInfo</h5>
       </div>
       <div class="row center">
-        <a href="inputUser.html" id="download-button" class="btn-large waves-effect waves-light" style="background-color:#585A5C">Get Started</a>
+        <a href="{{ url_for('login') }}" id="download-button" class="btn-large waves-effect waves-light" style="background-color:#585A5C">Get Started</a>
       </div>
       <br><br>
 
@@ -90,37 +53,4 @@ Dark Grey: #585A5C
     </div>
     <br><br>
   </div>
-
-  <footer class="page-footer" >
-    <div class="container">
-      <div class="row">
-        <div class="col s12">
-          <h5 class="text" style="text-align:center">Our Project</h5>
-          <p class="grey-text text-lighten-4">Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla</p>
-
-
-        </div>
-      </div>
-    </div>
-    <div class="footer-copyright">
-      <div class="container">
-      Made by Jessica, Josh, Tiffany, and Elizabeth
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    function t9Hackify(){   
-      if(document.body.style.backgroundColor == "white"){
-        document.body.style.backgroundColor = "#b299e6";
-        document.body.style.color = "white";
-      }else{
-        document.body.style.backgroundColor = "white";
-        document.body.style.color = "black";
-      }
-    }
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  </body>
-</html>
+{% endblock %}

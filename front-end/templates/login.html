@@ -1,36 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>myCUEverything</title>
+{% extends 'base.html' %}
 
-  <!-- CSS  -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <link href="../static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-    <style>
-    body {
-      display: flex;
-      min-height: 100vh;
-      flex-direction: column;
-    }
-
-    main {
-      flex: 1 0 auto;
-    }
-  </style>
-</head>
-<body>
-  <nav class="lighten-1" style="background-color:#CFB87C" role="navigation">
-    <div class="nav-wrapper container">
-    <a id="logo-container" href="index.html" class="brand-logo"><img src="../static/cu.png" style="width:50px;height:50px;float:left"></a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="index.html">Navbar Link</a></li>
-      </ul>
-
-    </div>
-  </nav>
+{% block body %}
   <div class="section no-pad-bot" id="index-banner">
     <div class="container">
       <br><br>
@@ -110,9 +80,4 @@
       </div>
     </div>
   </footer>
-
-
-  <!--  Scripts-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  </body>
-</html>
+{% endblock %}
