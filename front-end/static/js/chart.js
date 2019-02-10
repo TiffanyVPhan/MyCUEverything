@@ -26,7 +26,7 @@ new Chart(chart, {
         }, {
             label: 'Term',
             data: gpa_trend_no_zero,
-            backgroundColor: 'rgb(204, 153, 0)',
+            backgroundColor: '#CFB87C',
             borderWidth: 1,
             borderColor: '#777',
             hoverBorderWidth: 3,
