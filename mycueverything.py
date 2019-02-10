@@ -187,8 +187,23 @@ class MyCUEverything:
                     last_class = line
                 else:
                     class_dict[last_class].append(line.replace('\xa0', '-'))
-        # print(class_dict)
-        
+        #print(class_dict)
+             
+        new_dict = {}
+        for key, value in class_dict.items():
+            new_dict[key] = []
+            for i in range(0, len(value) - 1, 4):
+                class_data = value[i:i+4]
+                new_dict[key].append({
+                    'time': class_data[0],
+                    'number': class_data[1],
+                    'name': class_data[2],
+                    'location': class_data[3]
+                })
+
+        print(new_dict)
+
+
 
     @property
     def student_id(self):
