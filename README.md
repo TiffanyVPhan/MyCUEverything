@@ -11,3 +11,4 @@ Using the ```pipenv```, run the flask app in the ```front-end``` directory, and 
 
 
 Created by Joshua Franklin, Tiffany Phan, Jessica Sanborn, and Elizabeth Qiu for T9Hacks 2019 Community Track.
+Winner of "Best Community Hack"
